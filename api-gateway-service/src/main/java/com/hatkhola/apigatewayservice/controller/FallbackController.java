@@ -9,12 +9,20 @@ import reactor.core.publisher.Mono;
 @RestController
 public class FallbackController {
 
-    @RequestMapping("/countriesfallback")
-    public Mono<String> countries() {
-        return Mono.just("Countries API is taking too long to respond or is down. Please try again later");
+    @RequestMapping("/orderfallback")
+    public Mono<String> ordersFallBack() {
+        return Mono.just("Order Service is down");
     }
-    @RequestMapping("/jokefallback")
-    public Mono<String> joke() {
-        return Mono.just("Joke API is taking too long to respond or is down. Please try again later");
+    @RequestMapping("/productfallback")
+    public Mono<String> productFallback() {
+        return Mono.just("Product Service is down");
+    }
+    @RequestMapping("/customerfallback")
+    public Mono<String> customerFallback() {
+        return Mono.just("Customer Service is down");
+    }
+    @RequestMapping("/userfallback")
+    public Mono<String> userFallback() {
+        return Mono.just("User Service is down");
     }
 }

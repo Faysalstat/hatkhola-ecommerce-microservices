@@ -4,6 +4,7 @@ import com.myprojects.orderservice.clientServices.ProductClientService;
 import com.myprojects.orderservice.domain.ProductDomain;
 import com.myprojects.orderservice.model.Product;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +20,12 @@ public class ProductClientServiceImp implements ProductClientService {
 
 
     @Override
-    @HystrixCommand(fallbackMethod = "getProductFallback")
+    @HystrixCommand(fallbackMethod = "getProductFallback",
+            threadPoolKey = "productPool",
+            threadPoolProperties = {
+                    @HystrixProperty(name = "coreSize",value = "20"),
+                    @HystrixProperty(name = "maxQueueSize",value = "10")
+            })
     public ProductDomain getProducts(@PathVariable long userId) {
         return restTemplate.getForObject("http://PRODUCT-SERVICE/product/1", ProductDomain.class);
     }

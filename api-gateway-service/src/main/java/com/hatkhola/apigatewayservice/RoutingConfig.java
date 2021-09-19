@@ -13,10 +13,51 @@ public class RoutingConfig {
         return builder.routes()
                 .route(r -> r.path("/order/**")
                         .filters(f ->
-                                f.circuitBreaker(
-                                        h-> h.setFallbackUri("forward:/countriesfallback")))
+                                f.circuitBreaker(h->
+                                        h.setFallbackUri("forward:/orderfallback")
+                                ).retry(3)
+                        )
                         .uri("lb://ORDER-SERVICE")
-                        ).build();
+                        )
+                .route(r -> r.path("/product/**")
+                        .filters(f ->
+                                f.circuitBreaker(h->
+                                        h.setFallbackUri("forward:/productfallback")
+                                )
+                        )
+                        .uri("lb://PRODUCT-SERVICE")
+                )
+                .route(r -> r.path("/customer/**")
+                        .filters(f ->
+                                f.circuitBreaker(h->
+                                        h.setFallbackUri("forward:/customerfallback")
+
+                                )
+                        )
+
+                        .uri("lb://CUSTOMER-SERVICE")
+                )
+                .route(r -> r.path("/user/**")
+                        .filters(f ->
+                                f.circuitBreaker(h->
+                                        h.setFallbackUri("forward:/userfallback")
+
+                                )
+                        )
+
+                        .uri("lb://USER-SERVICE")
+                )
+//                .route(r -> r.path("/CUSTOMER/**")
+//                        .filters(f ->
+//                                f.circuitBreaker(h->
+//                                        h.setFallbackUri("forward:/userfallback")
+//
+//                                )
+//                        )
+//
+//                        .uri("lb://USER-SERVICE")
+//                )
+                .build();
     }
 
 }

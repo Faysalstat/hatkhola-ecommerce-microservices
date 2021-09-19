@@ -39,11 +39,11 @@ public class OrderRequestController {
         List<Order> orderList = new ArrayList();
         CustomerDomain customers = customerClientService.getCustomers(1);
         ProductDomain products = productClientService.getProducts(1);
-        orderList.add(new Order(1, customers, products, 5));
         orderDomain.setStatus("Success Message From Discovery Service");
         orderDomain.setOrderList(orderList);
-        throw  new RuntimeException("Order Service Down Bro!");
-//        return orderDomain;
+        System.out.println( System.currentTimeMillis()*1000+" BAM!");
+//        throw  new RuntimeException("Order Service Down Bro!");
+        return orderDomain;
     }
 
 

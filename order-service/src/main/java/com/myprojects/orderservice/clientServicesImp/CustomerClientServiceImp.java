@@ -20,7 +20,6 @@ public class CustomerClientServiceImp implements CustomerClientService {
     private RestTemplate restTemplate;
 
     @Override
-//    these extra properties are for bulkhead pattern
     @HystrixCommand(fallbackMethod = "getCustomerFallback",
     threadPoolKey = "customerPool",
     threadPoolProperties = {

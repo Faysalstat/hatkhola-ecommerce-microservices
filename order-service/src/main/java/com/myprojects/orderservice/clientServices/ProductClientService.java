@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 public interface ProductClientService {
 
-    public ProductDomain getProducts(@PathVariable long userId);
+    ProductDomain getProducts(@PathVariable long userId);
 
-    public ProductDomain getProductFallback(@PathVariable long userId);
+    ProductDomain getProductFallback(@PathVariable long userId);
 }
