@@ -5,7 +5,7 @@ spring:
     url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/hatkholadb
     username: root
     password:
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       naming:

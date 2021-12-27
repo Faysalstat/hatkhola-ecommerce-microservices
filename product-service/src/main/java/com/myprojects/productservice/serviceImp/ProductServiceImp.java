@@ -1,5 +1,6 @@
 package com.myprojects.productservice.serviceImp;
 
+import com.myprojects.productservice.domain.CommandResponse;
 import com.myprojects.productservice.model.ProductEntity;
 import com.myprojects.productservice.repository.ProductRepository;
 import com.myprojects.productservice.service.ProductService;
@@ -24,5 +25,10 @@ public class ProductServiceImp implements ProductService {
     @Override
     public Optional<ProductEntity> findAllById(Long id) {
         return productRepository.findById(id);
+    }
+
+    @Override
+    public ProductEntity save(ProductEntity productEntity) {
+        return productRepository.save(productEntity);
     }
 }

@@ -25,7 +25,7 @@ public class RoutingConfig {
                                 .filters(f ->
                                         f.circuitBreaker(h ->
                                                 h.setFallbackUri("forward:/productfallback")
-                                        )
+                                        ).retry(5)
                                 )
                                 .uri("lb://PRODUCT-SERVICE")
                 )
@@ -34,7 +34,7 @@ public class RoutingConfig {
                                 f.circuitBreaker(h ->
                                         h.setFallbackUri("forward:/customerfallback")
 
-                                )
+                                ).retry(3)
                         )
 
                         .uri("lb://CUSTOMER-SERVICE")

@@ -10,8 +10,7 @@ import com.myprojects.orderservice.model.Order;
 import com.myprojects.orderservice.model.Product;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +20,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/order")
@@ -46,7 +47,19 @@ public class OrderRequestController {
         return orderDomain;
     }
 
-
+    @GetMapping("/token")
+    public ResponseEntity<?> getToken() throws RuntimeException {
+        RestTemplate template = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        Map<String,String> map = new HashMap();
+//        map.put("grant_type", "Password");
+//        map.put("username", "admin");
+//        map.put("password", "admin");
+//        headers.set("Content-Type", "application/json");
+        HttpEntity entity = new HttpEntity(headers);
+        ResponseEntity<?> response = template.exchange("AUTH-SERVICE/oauth/token?grant_type=password&username=admin&password=admin", HttpMethod.POST,entity, Object.class);
+        return response;
+    }
     //Using webclient for test
 //    @GetMapping("/{userId}")
 //    public List<Order> getOrders(@PathVariable long userId) {

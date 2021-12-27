@@ -43,7 +43,7 @@ public class ProductEntity  implements java.io.Serializable {
     public ProductEntity(String productId) {
         this.productId = productId;
     }
-    public ProductEntity(String productId, String productName, String category, Double oldPrice, Double newPrice, Double costPrice, Integer quantity, String details, Integer review, String image, Set orderses, Set carts, Set wishlists) {
+    public ProductEntity(String productId, String productName, String category, Double oldPrice, Double newPrice, Double costPrice, Integer quantity, String details, Integer review, String image) {
         this.productId = productId;
         this.productName = productName;
         this.category = category;
