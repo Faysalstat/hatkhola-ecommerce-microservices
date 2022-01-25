@@ -20,3 +20,5 @@ security:
     client:
       client-id: mobile
       client-secret: admin
+kafka:
+  bootstrapAddress: 192.168.1.140:9092

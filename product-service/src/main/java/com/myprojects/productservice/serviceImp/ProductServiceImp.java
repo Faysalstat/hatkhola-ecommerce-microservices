@@ -4,6 +4,9 @@ import com.myprojects.productservice.domain.CommandResponse;
 import com.myprojects.productservice.model.ProductEntity;
 import com.myprojects.productservice.repository.ProductRepository;
 import com.myprojects.productservice.service.ProductService;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.annotation.PartitionOffset;
+import org.springframework.kafka.annotation.TopicPartition;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,5 +33,16 @@ public class ProductServiceImp implements ProductService {
     @Override
     public ProductEntity save(ProductEntity productEntity) {
         return productRepository.save(productEntity);
+    }
+
+
+    @KafkaListener(
+            topicPartitions =
+            @TopicPartition(
+                    topic = "topicName",
+                    partitionOffsets = {@PartitionOffset(partition = "1", initialOffset = "0")}),
+            groupId = "swift-group")
+    public void listenGroupFoo(Object message) {
+        System.out.println("Received Message in group foo: " + message);
     }
 }
